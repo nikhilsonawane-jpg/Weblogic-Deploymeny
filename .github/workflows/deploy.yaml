@@ -1,0 +1,28 @@
+name: Deploy to WebLogic
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Copy WAR to WebLogic Container
+        run: |
+          docker cp app/hello-world.war weblogic1411:/u01/oracle/hello-world.war
+
+      - name: Copy WLST Script
+        run: |
+          docker cp wlst/deploy.py weblogic1411:/u01/oracle/deploy.py
+
+      - name: Execute WLST Deployment
+        run: |
+          docker exec weblogic1411 bash -c "
+          /u01/oracle/oracle_common/common/bin/wlst.sh /u01/oracle/deploy.py
+          "
