@@ -1,12 +1,9 @@
 name: Deploy to WebLogic
 
 on:
-  workflow_dispatch:
-    inputs:
-      app:
-        description: 'Enter app to deploy'
-        required: true
-
+  push: 
+    branches:
+      - main
 jobs:
   deploy:
     runs-on: self-hosted
@@ -26,7 +23,7 @@ jobs:
 
       - name: Copy WAR to WebLogic Container
         run: |
-          docker cp ./app/${{inputs.app}}.war weblogic1411:/u01/oracle/${{inputs.app}}.war
+          docker cp ./app/hello-world.war weblogic1411:/u01/oracle/hello-world.war
 
       - name: Copy WLST Script
         run: |
@@ -38,4 +35,4 @@ jobs:
 
       - name: Check
         run: |
-          curl http://172.17.0.2:7001/hello-world
+          curl -f http://172.17.0.2:7001/hello-world
