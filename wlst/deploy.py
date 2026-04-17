@@ -3,7 +3,7 @@ edit()
 startEdit()
 deploy('hello-world',
        '/u01/oracle/hello-world.war',
-       targets='ManagedServer1',
+       targets='AdminServer',
        stageMode='nostage')
 
 save()
