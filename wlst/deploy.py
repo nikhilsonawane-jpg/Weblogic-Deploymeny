@@ -1,6 +1,14 @@
 connect('weblogic','Welcome1','t3://host.docker.internal:7001')
 edit()
 startEdit()
+
+try:
+    undeploy('hello-world', targets='ManagedServer1')
+    print('Old deployment removed')
+except:
+    print('No existing deployment')
+
+
 deploy('hello-world',
        '/u01/oracle/hello-world.war',
        targets='AdminServer',
