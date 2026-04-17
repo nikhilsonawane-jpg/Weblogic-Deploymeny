@@ -13,16 +13,23 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Debug Environment
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "List files:"
+          ls -l
+          echo "App folder:"
+          ls -l app
+
       - name: Copy WAR to WebLogic Container
         run: |
-          docker cp app/hello-world.war weblogic1411:/u01/oracle/hello-world.war
+          docker cp ./app/hello-world.war weblogic1411:/u01/oracle/hello-world.war
 
       - name: Copy WLST Script
         run: |
-          docker cp wlst/deploy.py weblogic1411:/u01/oracle/deploy.py
+          docker cp ./wlst/deploy.py weblogic1411:/u01/oracle/deploy.py
 
       - name: Execute WLST Deployment
         run: |
-          docker exec weblogic1411 bash -c "
-          /u01/oracle/oracle_common/common/bin/wlst.sh /u01/oracle/deploy.py
-          "
+          docker exec weblogic1411 bash -c "/u01/oracle/oracle_common/common/bin/wlst.sh /u01/oracle/deploy.py"
