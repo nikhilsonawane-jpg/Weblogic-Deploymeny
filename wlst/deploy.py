@@ -3,7 +3,7 @@ edit()
 startEdit()
 
 try:
-    undeploy('hello-world', targets='ManagedServer1')
+    undeploy('hello-world', targets='AdminServer')
     print('Old deployment removed')
 except:
     print('No existing deployment')
