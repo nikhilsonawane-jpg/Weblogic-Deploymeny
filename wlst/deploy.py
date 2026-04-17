@@ -7,6 +7,6 @@ deploy('hello-world',
        stageMode='nostage')
 
 save()
-Activate()
+activate()
 
 startApplication('hello-world')
